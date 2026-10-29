@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6366f1">
+  <link rel="manifest" href="/manifest.json">
+  <title>WhatsApp Business Automation Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Urgent Nutrition Call Floating Alert Banner -->
+  <div id="urgentAlertBanner" class="urgent-banner hidden">
+    <div class="urgent-icon">🚨</div>
+    <div class="urgent-info">
+      <strong>URGENT: New Nutrition Advisor Call Request!</strong>
+      <span id="urgentClientDetails">Client waiting for a phone consultation...</span>
+    </div>
+    <div class="urgent-actions">
+      <a id="urgentCallBtn" href="#" class="btn btn-call">📞 Call Client Now</a>
+      <button id="dismissAlertBtn" class="btn btn-secondary">Acknowledge</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="brand">
+      <div class="logo-icon">✨</div>
+      <div>
+        <h1 id="brandTitle">Divine Glow & Wellness</h1>
+        <p class="subtitle">WhatsApp 3-Category Smart Automation System</p>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button id="installAppBtn" class="btn btn-primary hidden" title="Install as Mobile/Desktop App">📱 Install App</button>
+      <div id="connectionBadge" class="status-badge connecting">
+        <span class="status-dot"></span>
+        <span id="connectionText">Initializing...</span>
+      </div>
+      <button id="restartBtn" class="btn btn-outline" title="Restart Bot Service">🔄 Restart</button>
+      <button id="disconnectBtn" class="btn btn-danger-outline" title="Scan New Number">Unlink / New QR</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- QR Code Section (Hidden when connected) -->
+    <div id="qrSection" class="card qr-card hidden">
+      <div class="qr-content">
+        <div class="qr-info">
+          <h2>📱 Connect Your WhatsApp Business Account</h2>
+          <p>Scan this QR code with the WhatsApp app on your phone to activate the automation:</p>
+          <ol class="qr-steps">
+            <li>Open <strong>WhatsApp</strong> or <strong>WhatsApp Business</strong> on your phone.</li>
+            <li>Tap <strong>Settings</strong> (or <strong>Menu ⋮</strong>) > <strong>Linked Devices</strong>.</li>
+            <li>Tap <strong>Link a Device</strong> and point your camera at this QR code.</li>
+          </ol>
+          <div class="qr-loader-info">
+            <span class="pulse-ring"></span>
+            <span>Awaiting connection... Auto-detects in real-time.</span>
+          </div>
+        </div>
+        <div class="qr-image-container">
+          <img id="qrImage" src="" alt="WhatsApp QR Code">
+          <p class="qr-caption">Scan with WhatsApp</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats Overview -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon total">📊</div>
+        <div class="stat-data">
+          <span class="stat-label">Total Inquiries</span>
+          <span id="totalLeadsCount" class="stat-value">0</span>
+        </div>
+      </div>
+
+      <div class="stat-card urgent-stat" id="urgentStatCard">
+        <div class="stat-icon urgent">🚨</div>
+        <div class="stat-data">
+          <span class="stat-label">Nutrition Advisor Calls</span>
+          <span id="urgentLeadsCount" class="stat-value text-urgent">0</span>
+          <span class="urgent-subtext">Requires Callback</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon makeup">💄</div>
+        <div class="stat-data">
+          <span class="stat-label">Makeup Orders</span>
+          <span id="makeupCount" class="stat-value">0</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon stitching">👗</div>
+        <div class="stat-data">
+          <span class="stat-label">Stitching Inquiries</span>
+          <span id="stitchingCount" class="stat-value">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-bar">
+      <div class="tabs-list">
+        <button class="tab-btn active" data-tab="tab-leads">📋 Customer Leads & Orders</button>
+        <button class="tab-btn" data-tab="tab-live">⚡ Live Chat Logs</button>
+        <button class="tab-btn" data-tab="tab-settings">⚙️ Bot Automation Settings</button>
+      </div>
+
+      <div class="tab-actions">
+        <a href="/api/export-leads" class="btn btn-outline" download>📥 Export to Excel (CSV)</a>
+        <button id="testAudioBtn" class="btn btn-ghost" title="Test Alert Chime">🔔 Test Alert Sound</button>
+      </div>
+    </div>
+
+    <!-- Tab 1: Leads & Orders -->
+    <section id="tab-leads" class="tab-pane active">
+      <div class="card">
+        <div class="table-header">
+          <div class="filter-group">
+            <button class="filter-pill active" data-filter="ALL">All Inquiries</button>
+            <button class="filter-pill filter-urgent" data-filter="Nutrition Advisor Call">🚨 Advisor Calls Only</button>
+            <button class="filter-pill" data-filter="Makeup Order">💄 Makeup Orders</button>
+            <button class="filter-pill" data-filter="Stitching Clothes">👗 Stitching</button>
+          </div>
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by name, phone, or requirement...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Category</th>
+                <th>Inquiry Details</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+                <th>Quick Actions</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+          <div id="noLeadsPlaceholder" class="empty-state hidden">
+            <p>No inquiries received yet. Once customers message your WhatsApp, their details will appear here automatically!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Live WhatsApp Activity -->
+    <section id="tab-live" class="tab-pane">
+      <div class="card">
+        <div class="live-feed-header">
+          <h2>⚡ Live WhatsApp Messages Feed</h2>
+          <span class="live-indicator"><span class="live-dot"></span> Live listening</span>
+        </div>
+        <div id="liveFeedContainer" class="live-feed-list">
+          <p class="empty-feed">Listening for incoming WhatsApp messages...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Bot Message Settings -->
+    <section id="tab-settings" class="tab-pane">
+      <div class="card settings-card">
+        <h2>⚙️ Customize Bot Messages & Notifications</h2>
+        <p class="settings-intro">Modify your automatic replies and configure your alert phone number below.</p>
+
+        <form id="settingsForm">
+          <div class="form-section">
+            <h3>🔔 Owner Notification Alerts</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ownerPhoneNumber">Your WhatsApp Number (to receive callback alerts):</label>
+                <input type="text" id="ownerPhoneNumber" placeholder="e.g. 919876543210 (Country code + number)">
+                <small class="form-help">When someone requests a Nutrition Advisor call, the bot will send an instant alert to this WhatsApp number.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="businessName">Business Name:</label>
+                <input type="text" id="businessName" placeholder="e.g. Divine Glamour & Nutrition Studio">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>💬 Automated WhatsApp Messages</h3>
+
+            <div class="form-group">
+              <label for="greetingMessage">Main Welcome Menu (Sent when customer says "Hi"):</label>
+              <textarea id="greetingMessage" rows="5"></textarea>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="makeupPrompt">💄 Makeup Order Questions:</label>
+                <textarea id="makeupPrompt" rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="makeupThanks">💄 Makeup Confirmation Reply:</label>
+                <textarea id="makeupThanks" rows="4"></textarea>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="stitchingPrompt">👗 Stitching Questions:</label>
+                <textarea id="stitchingPrompt" rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="stitchingThanks">👗 Stitching Confirmation Reply:</label>
+                <textarea id="stitchingThanks" rows="4"></textarea>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="nutritionMenu">🥗 Nutrition Initial Menu (Option A & B):</label>
+                <textarea id="nutritionMenu" rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="nutritionAdvisorPrompt">📞 Nutrition Advisor Intake Questions:</label>
+                <textarea id="nutritionAdvisorPrompt" rows="4"></textarea>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="nutritionAdvisorThanks">📞 Advisor Scheduled Confirmation:</label>
+                <textarea id="nutritionAdvisorThanks" rows="4"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="nutritionPlansText">📋 Nutrition Plans & Pricing Info:</label>
+                <textarea id="nutritionPlansText" rows="4"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary">💾 Save Settings</button>
+            <span id="saveStatus" class="save-status"></span>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "businessName": "Divine Glow & Wellness",
+  "ownerPhoneNumber": "+91 9840184194",
+  "notifyOwnerOnCallRequest": true,
+  "greetingMessage": "🌟 *Welcome to Divine Glow & Wellness!* 🌟\n\nWe are excited to assist you! Please reply with a number to select what you need:\n\n1️⃣ 💄 *Makeup Order*\n2️⃣ 👗 *Stitching Clothes*\n3️⃣ 🥗 *Body Nutrition*\n\n👉 *Reply with 1, 2, or 3 to get started!*",
+  "makeupPrompt": "💄 *Makeup Order Booking*\n\nWe would love to get you glammed up! Please share the following details:\n\n• Event Date & Time:\n• Makeup Style (Bridal / Party / Haldi / Photoshoot):\n• Service Location (Home Service or Studio Visit):\n• Number of Persons:\n\n✍️ *Reply with your details here:*",
+  "makeupThanks": "✅ *Thank you!* We have received your Makeup booking inquiry. Our beauty specialist will review the date and message you back shortly to confirm your booking! ✨\n\n_(Type *menu* anytime to start over)_",
+  "stitchingPrompt": "👗 *Stitching & Custom Tailoring*\n\nWe stitch designer blouses, dresses, salwar suits, kurtis, and gowns!\n\nPlease share:\n• Outfit Type:\n• Do you already have the fabric/cloth ready? (Yes / No):\n• Required Delivery Date:\n• Any special design requests or reference photos?\n\n✍️ *Reply with your requirements:*",
+  "stitchingThanks": "✅ *Got it!* We've recorded your stitching requirements. Our master tailor will review and send you a quotation and measurement guide shortly! 🧵\n\n_(Type *menu* anytime to start over)_",
+  "nutritionMenu": "🥗 *Body Nutrition & Wellness Plans*\n\nHealthy body, happy mind! How can we assist you today?\n\nA️⃣ 📞 *Speak directly with our Nutrition Advisor* (We will call you!)\nB️⃣ 📋 *View Diet Plans & Pricing*\n\n👉 *Reply with A or B:*",
+  "nutritionAdvisorPrompt": "📞 *Schedule a Free Nutrition Advisor Call*\n\nOur certified Nutrition Advisor will personally call you to discuss your health goals!\n\nPlease reply with:\n1. Your Full Name:\n2. Best phone number to call:\n3. Convenient time (e.g. Today 4 PM, Evening 7 PM):\n4. Primary goal (Weight loss / Gain / PCOD / Health):\n\n✍️ *Reply with your details below:*",
+  "nutritionAdvisorThanks": "🎉 *Your Call Request has been Scheduled!* 🎉\n\nOur Nutrition Advisor has been alerted immediately and will call you at your preferred time.\n\nGet ready for a healthier you! 🌿\n\n_(Type *menu* anytime to start over)_",
+  "nutritionPlansText": "📋 *Our Popular Nutrition & Diet Programs:*\n\n1. 🌟 *30-Day Weight Loss Transformation* - Custom meal plan, daily tracking & weekly check-ins.\n2. 💪 *Muscle Gain & Lean Nutrition* - High protein, macro-calculated diet.\n3. 🩺 *Lifestyle & PCOD/Thyroid Management* - Hormone-balancing holistic nutrition.\n4. 🍎 *1-on-1 Personalized Diet Consultation* - Complete assessment & habit coaching.\n\n👉 *Would you like our advisor to call you to explain which plan fits you best?*\nReply with *A* to schedule a call, or *menu* to go back!"
+}

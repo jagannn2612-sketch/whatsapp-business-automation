@@ -1,0 +1,17 @@
+{
+  "name": "whatsapp-business-automation",
+  "version": "1.0.0",
+  "description": "WhatsApp Business Automation for Makeup, Stitching, and Nutrition Advisor Callbacks",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^7.0.0-rc14",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "pino": "^9.6.0",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.1"
+  }
+}
