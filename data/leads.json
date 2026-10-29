@@ -1,12 +1,33 @@
 [
   {
+    "id": "LEAD_1793259180964_364",
+    "timestamp": "2026-10-29T07:33:00.964Z",
+    "status": "New",
+    "customerName": "karpagam",
+    "customerPhone": "181875339473001@lid",
+    "category": "Makeup Order",
+    "priority": "Normal",
+    "details": "2"
+  },
+  {
+    "id": "LEAD_1793259178903_954",
+    "timestamp": "2026-10-29T07:32:58.903Z",
+    "status": "New",
+    "customerName": "𝙅🎀",
+    "customerPhone": "70003890114604@lid",
+    "category": "Makeup Order",
+    "priority": "Normal",
+    "details": "2"
+  },
+  {
     "id": "LEAD_1793257214772_814",
     "timestamp": "2026-10-29T07:00:14.772Z",
-    "status": "New",
+    "status": "Completed",
     "customerName": "🌞",
     "customerPhone": "158008055197852@lid",
     "category": "Nutrition Advisor Call",
     "priority": "URGENT",
-    "details": "Jaganathan\n7305974194\n4pm\nWeight loss"
+    "details": "Jaganathan\n7305974194\n4pm\nWeight loss",
+    "updatedAt": "2026-10-29T07:27:25.922Z"
   }
 ]
