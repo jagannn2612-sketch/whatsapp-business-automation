@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const https = require('https');
 const { Server } = require('socket.io');
 const path = require('path');
 const fs = require('fs');
@@ -434,6 +435,11 @@ app.get('/api/export-leads', (req, res) => {
   res.send(csv);
 });
 
+// Health check endpoint for uptime monitors
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', uptime: Math.floor(process.uptime()), timestamp: new Date().toISOString() });
+});
+
 // Start Web Server & WhatsApp Worker
 server.listen(PORT, () => {
   console.log(`===============================================`);
@@ -441,4 +447,20 @@ server.listen(PORT, () => {
   console.log(` ➡️  http://localhost:${PORT}`);
   console.log(`===============================================`);
   startWhatsApp();
+
+  // Automated self-ping to prevent Render / Cloud Host from sleeping
+  const externalUrl = process.env.RENDER_EXTERNAL_URL || process.env.SELF_PING_URL;
+  if (externalUrl) {
+    const pingTarget = externalUrl.replace(/\/$/, '') + '/health';
+    const pingInterval = 8 * 60 * 1000; // Ping every 8 mins (Render sleeps at 15 mins)
+    console.log(`[Keep-Alive] Auto-ping active for 24/7 uptime: ${pingTarget}`);
+    setInterval(() => {
+      const client = pingTarget.startsWith('https') ? https : http;
+      client.get(pingTarget, (res) => {
+        console.log(`[Keep-Alive] Pinged ${pingTarget} - Status: ${res.statusCode}`);
+      }).on('error', (err) => {
+        console.warn(`[Keep-Alive] Ping warn:`, err.message);
+      });
+    }, pingInterval);
+  }
 });
