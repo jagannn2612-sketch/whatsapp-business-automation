@@ -17,12 +17,13 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
 const PORT = process.env.PORT || 3000;
-const DATA_DIR = path.join(__dirname, 'data');
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
-const AUTH_DIR = path.join(__dirname, 'auth_info_baileys');
+const AUTH_DIR = process.env.AUTH_DIR || path.join(__dirname, 'auth_info_baileys');
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+if (!fs.existsSync(AUTH_DIR)) fs.mkdirSync(AUTH_DIR, { recursive: true });
 
 // Load Helpers
 function getSettings() {
